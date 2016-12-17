@@ -241,6 +241,15 @@ public class LauncherActivity extends Activity {
 				@Override
 				public void onClick( DialogInterface dialog, int which )
 				{
+					if( sdk < 9 ) // Android 2.2 can't use google play services
+					{
+						startActivity( 
+							new Intent( Intent.ACTION_VIEW, 
+							Uri.parse("https://github.com/FWGS/xash3d/releases/latest") ) );
+						return;
+					}
+				
+				
 					GoogleApiAvailability api = GoogleApiAvailability.getInstance();
 					int avail = api.isGooglePlayServicesAvailable( LauncherActivity.mContext );
 					
@@ -391,7 +400,7 @@ public class LauncherActivity extends Activity {
 				mPref = context.getSharedPreferences("mod", 0);
 			
 			if( mPref.getInt( "pakversion", 0 ) == PAK_VERSION && !force )
-					return;
+				return;
 			extractFile(context, "extras.pak");
 			SharedPreferences.Editor editor = mPref.edit();
 			editor.putInt( "pakversion", PAK_VERSION );
