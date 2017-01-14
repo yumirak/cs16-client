@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
@@ -408,7 +410,8 @@ int CHudMessage::Draw( float fTime )
 					delete[] m_pMessages[i]->pName;
 					delete[] m_pMessages[i]->pMessage;
 				}
-				delete m_pMessages[i];
+				if( strcmp( m_pMessages[i]->pName, "HUD_MESSAGE") ) // came from DRC, don't clean them
+					delete m_pMessages[i];
 				m_pMessages[i] = NULL;
 			}
 		}
@@ -450,7 +453,9 @@ void CHudMessage::MessageAdd( const char *pName, float time )
 					char *szCustomName = new char[10];
 					char *szCustomText = new char[1024];
 					strcpy( szCustomName, "Custom" );
-					strcpy( szCustomText, pName );
+
+
+					strcpy( szCustomText, CHudTextMessage::BufferedLocaliseTextString( message->pMessage ));
 					message->pMessage = szCustomText;
 					message->pName = szCustomName;
 				}

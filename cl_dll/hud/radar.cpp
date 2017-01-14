@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /*
 radar.cpp - Radar
 Copyright (C) 2016 a1batross
@@ -569,9 +571,6 @@ int CHudRadar::MsgFunc_HostageK(const char *pszName, int iSize, void *pbuf)
 int CHudRadar::MsgFunc_Location(const char *pszName, int iSize, void *pbuf)
 {
 	BufferReader reader( pszName, pbuf, iSize );
-
-	if( gHUD.IsCZero() )
-		return 1;
 
 	int player = reader.ReadByte();
 	if( player <= MAX_PLAYERS )

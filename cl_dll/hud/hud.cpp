@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
@@ -210,6 +212,8 @@ void __CmdFunc_MouseSucksClose( void ) { evdev_open = false; }
 // This is called every time the DLL is loaded
 void CHud :: Init( void )
 {
+	SetGameType(); // call it first, so we will know gamedir at very early stage
+
 	HOOK_COMMAND( "special", InputCommandSpecial );
 	//HOOK_COMMAND( "gunsmoke", GunSmoke );
 
@@ -266,7 +270,7 @@ void CHud :: Init( void )
 
 	CVAR_CREATE( "cscl_ver", Q_buildnum(), 1<<14 | FCVAR_USERINFO ); // init and userinfo
 
-	m_bIsCZero = (bool)HUD_IsGame("czero");
+
 
 	m_iLogo = 0;
 	m_iFOV = 0;
@@ -293,7 +297,10 @@ void CHud :: Init( void )
 	// fullscreen overlays
 	m_SniperScope.Init();
 	m_NVG.Init();
-	m_SpectatorGui.Init();
+
+	// Spectator GUI is not need in singleplayer czeror
+	if( GetGameType() != GAME_CZERODS )
+		m_SpectatorGui.Init();
 
 	// Game HUD things
 	m_Ammo.Init();
@@ -540,6 +547,15 @@ int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)
 	m_iLogo = reader.ReadByte();
 
 	return 1;
+}
+
+void CHud::SetGameType()
+{
+	if( HUD_IsGame( "czeror" ) )
+		m_iGameType = GAME_CZERODS;
+	else if( HUD_IsGame( "czero" ))
+		m_iGameType = GAME_CZERO;
+	else m_iGameType = GAME_CSTRIKE;
 }
 
 /*

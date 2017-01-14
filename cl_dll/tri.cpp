@@ -1,3 +1,5 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 //========= Copyright ? 1996-2002, Valve LLC, All rights reserved. ============
 //
 // Purpose:
@@ -35,10 +37,14 @@ HUD_DrawTransparentTriangles
 Render any triangles with transparent rendermode needs here
 =================
 */
+extern bool Rain_Initialized;
 void DLLEXPORT HUD_DrawTransparentTriangles( void )
 {
-	ProcessFXObjects();
-	ProcessRain();
-	DrawRain();
-	DrawFXObjects();
+	if( Rain_Initialized )
+	{
+		ProcessFXObjects();
+		ProcessRain();
+		DrawRain();
+		DrawFXObjects();
+	}
 }

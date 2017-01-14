@@ -54,7 +54,7 @@ if(CMAKE_SIZEOF_VOID_P MATCHES "8")
     endif()
 endif()
 
-#find_package(SDL2 REQUIRED)
+find_package(SDL2 REQUIRED)
 
 set (CLDLL_LIBRARY client)
 
@@ -200,6 +200,8 @@ set (CLDLL_SOURCES
     ./vgui_parser.cpp
     ./unicode_strtools.cpp
 	./draw_util.cpp
+	../common/interface.cpp
+
 	./include/camera.h
 	./include/cl_dll.h
 	./include/cl_util.h
@@ -248,7 +250,13 @@ add_definitions( -D_CS16CLIENT_ENABLE_GSRC_SUPPORT
 	-D_DEBUG  -D_CS16CLIENT_ALLOW_SPECIAL_SCRIPTING
 	-Dstricmp=strcasecmp -D_strnicmp=strncasecmp -Dstrnicmp=strncasecmp )
 
-target_link_libraries( ${CLDLL_LIBRARY} ${CMAKE_DL_LIBS} ${SDL2_LIBRARY} )
+include(../cmake/PVS-Studio.cmake)
+pvs_studio_add_target(TARGET analyze ALL
+	FORMAT tasklist
+	LOG "${CMAKE_CURRENT_LIST_DIR}/cs16client.tasks"
+	ANALYZE ${CLDLL_LIBRARY})
+
+target_link_libraries( ${CLDLL_LIBRARY} ${CMAKE_DL_LIBS} -lSDL2 )
 
 
 set_target_properties (${CLDLL_SHARED} PROPERTIES
