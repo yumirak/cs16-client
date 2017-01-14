@@ -609,7 +609,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 
 	if ((button & IN_ATTACK2) && m_flNextSecondaryAttack <= UTIL_WeaponTimeBase())
 	{
-		if (pszAmmo2() && !m_pPlayer->m_rgAmmo[SecondaryAmmoIndex()])
+		if (pszAmmo2() && !m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType])
 			m_fFireOnEmpty = TRUE;
 
 		SecondaryAttack();
@@ -617,7 +617,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	}
 	else if ((m_pPlayer->pev->button & IN_ATTACK) && m_flNextPrimaryAttack <= UTIL_WeaponTimeBase())
 	{
-		if ((!m_iClip && pszAmmo1()) || (iMaxClip() == WEAPON_NOCLIP && !m_pPlayer->m_rgAmmo[PrimaryAmmoIndex()]))
+		if ((!m_iClip && pszAmmo1()) || (iMaxClip() == WEAPON_NOCLIP && !m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]))
 			m_fFireOnEmpty = TRUE;
 
 		if (m_pPlayer->m_bCanShoot == true)
@@ -820,6 +820,7 @@ char UTIL_TextureHit(TraceResult *ptr, Vector vecSrc, Vector vecEnd)
 
 CBaseEntity *UTIL_PlayerByIndex(int playerIndex)
 {
+#if 0
 	CBaseEntity *pPlayer = NULL;
 
 	if (playerIndex > 0 && playerIndex <= gpGlobals->maxClients)
@@ -831,6 +832,9 @@ CBaseEntity *UTIL_PlayerByIndex(int playerIndex)
 	}
 
 	return pPlayer;
+#else
+	return &player;
+#endif
 }
 
 void UTIL_MakeVectors( const Vector &vec )
