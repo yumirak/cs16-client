@@ -201,6 +201,7 @@ set (CLDLL_SOURCES
     ./unicode_strtools.cpp
 	./draw_util.cpp
 	../common/interface.cpp
+	./cvar_checker.cpp
 
 	./include/camera.h
 	./include/cl_dll.h
@@ -223,6 +224,7 @@ set (CLDLL_SOURCES
 	./include/wrect.h
 	./include/math/neon_mathfun.h
 	./include/math/sse_mathfun.h
+	./include/cvar_checker.h
 
 	${PLAYERMOVE_SRCS}
 	${HUD_SRCS}
