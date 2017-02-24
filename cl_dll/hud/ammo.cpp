@@ -130,7 +130,7 @@ int WeaponsResource :: HasAmmo( WEAPON *p )
 
 void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 {
-	int i, iRes = 640;
+	int i, iRes = gHUD.GetSpriteRes();
 
 	char sz[128];
 
@@ -1411,6 +1411,8 @@ void CHudAmmo::DrawCrosshair( float flTime )
 
 		gEngfuncs.pTriAPI->Color4ub( m_R, m_G, m_B, m_iAlpha );
 
+		gEngfuncs.pTriAPI->Begin( TRI_QUADS );
+
 		DrawUtils::Draw2DQuad( WEST_XPOS_R, EAST_WEST_YPOS_R,
 							   WEST_XPOS_R + iLength, EAST_WEST_YPOS_R + 1);
 		DrawUtils::Draw2DQuad( EAST_XPOS_R, EAST_WEST_YPOS_R,
@@ -1419,6 +1421,8 @@ void CHudAmmo::DrawCrosshair( float flTime )
 							   NORTH_SOUTH_XPOS_R + 1, NORTH_YPOS_R + iLength );
 		DrawUtils::Draw2DQuad( NORTH_SOUTH_XPOS_R, SOUTH_YPOS_R,
 							   NORTH_SOUTH_XPOS_R + 1, SOUTH_YPOS_R + iLength );
+
+		gEngfuncs.pTriAPI->End( );
 
 	}
 	else if ( m_bAdditive )
@@ -1504,7 +1508,7 @@ void CHudAmmo::CalcCrosshairDrawMode()
 	else
 	{
 		gEngfuncs.Con_Printf("usage: cl_crosshair_translucent <1|0>\n");
-		gEngfuncs.Cvar_Set("cl_crosshair_translucent", (char*)"1");
+		gEngfuncs.Cvar_Set("cl_crosshair_translucent", "1");
 	}
 	
 	prevDrawMode = drawMode;
@@ -1533,6 +1537,12 @@ void CHudAmmo::CalcCrosshairColor()
 		m_R = m_cvarR = bound( 0, m_cvarR, 255 );
 		m_G = m_cvarG = bound( 0, m_cvarG, 255 );
 		m_B = m_cvarB = bound( 0, m_cvarB, 255 );
+	}
+	else
+	{
+		m_R = m_cvarR;
+		m_G = m_cvarG;
+		m_B = m_cvarB;
 	}
 }
 
