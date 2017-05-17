@@ -8,6 +8,3 @@
 [submodule "3rdparty/regamedll"]
 	path = 3rdparty/regamedll
 	url = https://github.com/FWGS/regamedll
-[submodule "mainui"]
-	path = mainui
-	url = https://github.com/FWGS/mainui_cpp
