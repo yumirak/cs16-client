@@ -575,6 +575,7 @@ float GetGunOffset(cl_entity_s* vm)
 
 void V_CalcQuakeGuns()
 {
+#if 0
 	cl_entity_s * vm = gEngfuncs.GetViewModel();
 
 	if(!cl_quakeguns_enable->value)
@@ -598,6 +599,7 @@ void V_CalcQuakeGuns()
 	org[0] += forward[0] + up[0] + right[0]*gunoffsetr;
 	org[1] += forward[1] + up[1] + right[1]*gunoffsetr;
 	org[2] += forward[2] + up[2] + right[2]*gunoffsetr;
+#endif
 }
 
 
