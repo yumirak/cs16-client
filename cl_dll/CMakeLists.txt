@@ -159,6 +159,8 @@ set (HUD_SRCS
 	./hud/death.cpp
 	./hud/saytext.cpp
 	./hud/spectator_gui.cpp
+	./hud/scenario.cpp
+
 	./include/hud/ammo.h
 	./include/hud/ammohistory.h
 	./include/hud/health.h

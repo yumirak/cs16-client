@@ -178,62 +178,63 @@ struct
 	int numArgs;
 	bool allowDead;
 	bool replaceFirstArgToName;
+	bool swap;
 } sayTextFmt[] =
 {
 	{
 		"#Cstrike_Chat_CT",
 		"\x02(Counter-Terrorist) %s :  %s",
-		2, true, true
+		2, true, true, false
 	},
 	{
 		"#Cstrike_Chat_T",
 		"\x02(Terrorist) %s :  %s",
-		2, true, true
+		2, true, true, false
 	},
 	{
 		"#Cstrike_Chat_CT_Dead",
 		"\x02*DEAD*(Counter-Terrorist) %s :  %s",
-		2, false, true
+		2, false, true, false
 	},
 	{
 		"#Cstrike_Chat_T_Dead",
 		"\x02*DEAD*(Terrorist) %s :  %s",
-		2, false, true
+		2, false, true, false
 	},
 	{
 		"#Cstrike_Chat_Spec",
 		"\x02(Spectator) %s :  %s",
-		2, false, true,
+		2, false, true, false
 	},
 	{
 		"#Cstrike_Chat_All",
 		"\x02%s :  %s",
-		2, true, true
+		2, true, true, false
 	},
 	{
 		"#Cstrike_Chat_AllDead",
 		"\x02*DEAD* %s:  %s",
-		2, false, true
+		2, false, true, false
 	},
 	{
 		"#Cstrike_Chat_AllSpec",
 		"\x02*SPEC* %s:  %s",
-		2, false, true
+		2, false, true, false
 	},
 	{
 		"#Cstrike_Name_Change",
 		"\x02* %s changed name to %s",
-		2, true, false
+		2, true, false, false
 	},
 	{
 		"#Cstrike_Chat_T_Loc",
 		"\x02*(Terrorist) %s @ %s : %s",
-		3, true, true
+		3, true, true, true
 	},
 	{
 		"#Cstrike_Chat_CT_Loc",
 		"\x02*(Counter-Terrorist) %s @ %s : %s",
-		3, true, true
+		3, true, true, true
 	}
 };
 
@@ -243,7 +244,7 @@ int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
 	int i = CHAT_LAST, client_index, argc, numArgs;		// the client who spoke the message
 	char *arg, *fmt, *argv[3] = {};
 	const char *fmt_tran;
-	bool allowDead, replaceFirstArgToName;
+	bool allowDead, replaceFirstArgToName, swap;
 	int len;
 
 	client_index = reader.ReadByte();
@@ -279,6 +280,9 @@ int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
 
 				// VALVEWHY: Second argument may be null string, but not on name changing.
 				replaceFirstArgToName = sayTextFmt[i].replaceFirstArgToName;
+
+				// VALVEWHY #2: location is last argument, so swap
+				swap = sayTextFmt[i].swap;
 				break;
 			}
 		}
@@ -291,6 +295,7 @@ int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
 		numArgs = argc;
 		allowDead = true;
 		replaceFirstArgToName = false;
+		swap = false;
 	}
 
 	// If text is sent from dead player or spectator
@@ -318,7 +323,10 @@ int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
 	switch( numArgs )
 	{
 	case 3:
-		snprintf( dst, sizeof( dst ), fmt_tran, argv[0], argv[1], argv[2] );
+		if( swap )
+			snprintf( dst, sizeof( dst ), fmt_tran, argv[0], argv[2], argv[1] );
+		else
+			snprintf( dst, sizeof( dst ), fmt_tran, argv[0], argv[1], argv[2] );
 		break;
 	case 2:
 		snprintf( dst, sizeof( dst ), fmt_tran, argv[0], argv[1] );

@@ -68,6 +68,7 @@ SRCS := \
 	./hud/death.cpp \
 	./hud/saytext.cpp \
 	./hud/spectator_gui.cpp \
+	./hud/scenario.cpp \
 	./com_weapons.cpp \
 	./cs_wpn/cs_baseentity.cpp \
 	./cs_wpn/cs_weapons.cpp \

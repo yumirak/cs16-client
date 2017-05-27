@@ -720,6 +720,8 @@ public:
 	// show the timer
 	// [empty]
 	CHudMsgFunc(ShowTimer);
+
+	int m_right;
 private:
 	int m_HUD_timer;
 	int m_iTime;
@@ -790,6 +792,27 @@ private:
 	int m_iAlpha;
 	cvar_t *cl_fancy_nvg;
 	dlight_t *m_pLight;
+};
+
+//
+//-----------------------------------------------------
+//
+
+class CHudScenario : public CHudBase
+{
+public:
+	int Init();
+	int VidInit();
+	int Draw(float flTime);
+	void Reset();
+
+	CHudMsgFunc(Scenario);
+private:
+	CClientSprite m_sprite;
+	int m_iAlpha;
+	int m_iFlashAlpha;
+	float m_fFlashRate;
+	float m_fNextFlash;
 };
 
 //
@@ -941,7 +964,7 @@ public:
 
 	HSPRITE m_hGasPuff;
 
-	int m_iFontHeight;
+	int m_iFontHeight, m_iFontWidth;
 	CHudAmmo        m_Ammo;
 	CHudHealth      m_Health;
 	CHudSpectator   m_Spectator;
@@ -967,6 +990,7 @@ public:
 	CHudNVG         m_NVG;
 	CHudRadar       m_Radar;
 	CHudSpectatorGui m_SpectatorGui;
+	CHudScenario	m_Scenario;
 
 	// user messages
 	CHudMsgFunc(Damage);
