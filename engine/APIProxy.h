@@ -18,6 +18,16 @@ typedef struct cmdalias_s
 	char	*value;
 } cmdalias_t;
 
+#ifdef _WIN32
+typedef enum netsrc_s
+{
+        NS_CLIENT,
+        NS_SERVER,
+        NS_MULTICAST
+
+} netsrc_t;
+#endif
+
 
 // ********************************************************
 // Functions exported by the client .dll

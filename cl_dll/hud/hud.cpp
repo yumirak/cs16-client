@@ -223,7 +223,7 @@ void CHud :: Init( void )
 	gEngfuncs.pfnHookUserMsg( "Spectator", __MsgFunc_Spectator );
 
 
-	CVAR_CREATE( "_vgui_menus", "1", FCVAR_ARCHIVE | FCVAR_USERINFO );
+    CVAR_CREATE( "_vgui_menus", "0",  FCVAR_USERINFO ); // FCVAR_ARCHIVE
 	CVAR_CREATE( "_cl_autowepswitch", "1", FCVAR_ARCHIVE | FCVAR_USERINFO );
 	CVAR_CREATE( "_ah", "0", FCVAR_ARCHIVE | FCVAR_USERINFO );
 
@@ -241,7 +241,7 @@ void CHud :: Init( void )
 	cl_weapon_sparks = CVAR_CREATE( "cl_weapon_sparks", "1", FCVAR_ARCHIVE );
 	cl_weapon_wallpuff = CVAR_CREATE( "cl_weapon_wallpuff", "1", FCVAR_ARCHIVE );
 	zoom_sens_ratio = CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
-
+    hud_colormode = CVAR_CREATE( "hud_colormode", "1", FCVAR_ARCHIVE );
 	m_cvarChecker.Init();
 	m_cvarChecker.AddToCheckList( "cl_lw", 1.0f );
 	m_cvarChecker.AddToCheckList( "cl_predict", 1.0f );
@@ -499,6 +499,7 @@ void CHud :: VidInit( void )
 	}
 
 	firstinit = false;
+
 }
 
 void CHud::Shutdown( void )

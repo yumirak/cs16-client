@@ -108,6 +108,7 @@ GNU General Public License for more details.
 	#define read _read
 
 	// shut-up compiler warnings
+/*
 	#pragma warning(disable : 4244)	// MIPS
 	#pragma warning(disable : 4018)	// signed/unsigned mismatch
 	#pragma warning(disable : 4305)	// truncation from const double to float
@@ -119,7 +120,8 @@ GNU General Public License for more details.
 	#pragma warning(disable : 4706)	// assignment within conditional expression
 	#pragma warning(disable : 4054)	// type cast' : from function pointer
 	#pragma warning(disable : 4310)	// cast truncates constant value
-   #pragma warning(disable : 4244) // 'argument': conversion from 'float' to 'int', possible loss of data
+   	#pragma warning(disable : 4244) // 'argument': conversion from 'float' to 'int', possible loss of data
+*/
 
 	#define HSPRITE WINAPI_HSPRITE
 	#include <windows.h>

@@ -56,6 +56,13 @@ enum
 	MAX_HOSTAGES = 24,
 };
 
+enum
+{
+    HUD_YELLOWISH = 1,
+    HUD_REDISH = 2,
+    HUD_GREENISH = 3,
+    HUD_WHITE = 4
+};
 #define PLAYERMODEL_PLAYER	0
 #define PLAYERMODEL_LEET	1
 #define PLAYERMODEL_GIGN	2
@@ -944,6 +951,7 @@ public:
 	int		m_iHideHUDDisplay;
 	int		m_iFOV;
 	int		m_Teamplay;
+    int 	m_pHudColor;
 	cvar_t *m_pCvarDraw;
 	cvar_t *fastsprites;
 	cvar_t *cl_predict;
@@ -958,6 +966,7 @@ public:
 	cvar_t *cl_gunsmoke;
 	cvar_t *hud_textmode;
 	cvar_t *hud_colored;
+    cvar_t *hud_colormode;
 #ifdef __ANDROID__
 	cvar_t *cl_android_force_defaults;
 #endif
@@ -1018,7 +1027,7 @@ public:
 	// sprite indexes
 	int m_HUD_number_0;
 
-	char m_szServerName[64];
+    char m_szServerName[64];
 
 	int m_WhiteTex;
 

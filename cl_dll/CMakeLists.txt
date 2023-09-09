@@ -24,8 +24,8 @@ cmake_minimum_required(VERSION 2.6.0)
 project (CLDLL)
 
 # set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
-if (APPLE)
-set (CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Wpedantic -Wno-unused-parameter -ggdb")
+if (WIN32)
+set (CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wl,--no-undefined -ggdb -static")
 else()
 set (CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wl,--no-undefined -ggdb")
 endif()
@@ -189,18 +189,18 @@ set (PLAYERMOVE_SRCS
 
 set (CLDLL_SOURCES
 	./cdll_int.cpp
-    ./demo.cpp
-    ./entity.cpp
-    ./in_camera.cpp
-    ./input.cpp
+    	./demo.cpp
+    	./entity.cpp
+    	./in_camera.cpp
+    	./input.cpp
 	./rain.cpp
-    ./tri.cpp
+    	./tri.cpp
 	./util.cpp
 	./view.cpp
 	./input_xash3d.cpp
 	#./input_sdl.cpp
-    ./vgui_parser.cpp
-    ./unicode_strtools.cpp
+    	./vgui_parser.cpp
+    	./unicode_strtools.cpp
 	./draw_util.cpp
 	../common/interface.cpp
 	./cvar_checker.cpp
@@ -262,7 +262,7 @@ if( CS16CLIENT_ANALYZE )
 		ANALYZE ${CLDLL_LIBRARY})
 endif()
 
-target_link_libraries( ${CLDLL_LIBRARY} ${CMAKE_DL_LIBS} -lSDL2 )
+target_link_libraries( ${CLDLL_LIBRARY} ${CMAKE_DL_LIBS} ${SDL2_LIBRARY} )
 
 
 set_target_properties (${CLDLL_SHARED} PROPERTIES

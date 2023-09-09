@@ -823,7 +823,9 @@ void CreateCorpse(Vector vOrigin, Vector vAngles, const char *pModel, float flAn
 
 	if(model)
 	{
-		model->flags = FTENT_COLLIDEWORLD;
+        model->flags = FTENT_COLLIDEWORLD + FTENT_CLIENTCUSTOM + FTENT_FADEOUT;
+        model->entity.curstate.fuser4 = gEngfuncs.GetClientTime();
+        model->fadeSpeed = 0.2;
 		model->entity.curstate.animtime = flAnimTime;
 		model->entity.curstate.framerate = 1.0;
 		model->entity.curstate.frame = 0;

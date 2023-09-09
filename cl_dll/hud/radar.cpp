@@ -41,38 +41,29 @@ version.
 
 static byte	r_RadarCross[8][8] =
 {
-{1,1,0,0,0,0,1,1},
-{1,1,1,0,0,1,1,1},
-{0,1,1,1,1,1,1,0},
-{0,0,1,1,1,1,0,0},
-{0,0,1,1,1,1,0,0},
-{0,1,1,1,1,1,1,0},
-{1,1,1,0,0,1,1,1},
-{1,1,0,0,0,0,1,1}
+{1,0,0,0,1},
+{0,1,0,1,0},
+{0,0,1,0,0},
+{0,1,0,1,0},
+{1,0,0,0,1}
 };
 
 static byte	r_RadarT[8][8] =
 {
-{1,1,1,1,1,1,1,1},
-{1,1,1,1,1,1,1,1},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0}
+{1,1,1,1,1},
+{0,0,1,0,0},
+{0,0,1,0,0},
+{0,0,1,0,0},
+{0,0,1,0,0}
 };
 
 static byte	r_RadarFlippedT[8][8] =
 {
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{0,0,0,1,1,0,0,0},
-{1,1,1,1,1,1,1,1},
-{1,1,1,1,1,1,1,1}
+ {0,0,1,0,0},
+ {0,0,1,0,0},
+ {0,0,1,0,0},
+ {0,0,1,0,0},
+ {1,1,1,1,1}
 };
 
 #define BLOCK_SIZE_MAX 1024
@@ -143,9 +134,9 @@ int CHudRadar::InitBuiltinTextures( void )
 	}
 	textures[] =
 	{
-	{ "radarT",		   (byte*)r_RadarT,      &hT,		 8, 8, Radar_InitBitmap, TEX_CUSTOM },
-	{ "radarcross",    (byte*)r_RadarCross,    &hCross,    8, 8, Radar_InitBitmap, TEX_CUSTOM },
-	{ "radarflippedT", (byte*)r_RadarFlippedT, &hFlippedT, 8, 8, Radar_InitBitmap, TEX_CUSTOM }
+    { "radarT",		   (byte*)r_RadarT,      &hT,		 5, 5, Radar_InitBitmap, TEX_CUSTOM },
+    { "radarcross",    (byte*)r_RadarCross,    &hCross,    5, 5, Radar_InitBitmap, TEX_CUSTOM },
+    { "radarflippedT", (byte*)r_RadarFlippedT, &hFlippedT, 5, 5, Radar_InitBitmap, TEX_CUSTOM }
 	};
 	size_t	i, num_builtin_textures = sizeof( textures ) / sizeof( textures[0] );
 
@@ -396,7 +387,7 @@ void CHudRadar::DrawPlayerLocation( int y )
 		int len = DrawUtils::ConsoleStringLen( szLocation );
 
 		x = x - len / 2;
-
+        DrawUtils::SetConsoleTextColor( 0.0f, 1.0f , 0.0f );
 		DrawUtils::DrawConsoleString( x, y, szLocation );
 	}
 }
@@ -507,7 +498,7 @@ int CHudRadar::MsgFunc_BombDrop(const char *pszName, int iSize, void *pbuf)
 
 	g_PlayerExtraInfo[33].radarflashes = 99999;
 	g_PlayerExtraInfo[33].radarflashtime = gHUD.m_flTime;
-	g_PlayerExtraInfo[33].radarflashtimedelta = 0.5f;
+    	g_PlayerExtraInfo[33].radarflashtimedelta = 0.5f;
 	strncpy(g_PlayerExtraInfo[33].teamname, "TERRORIST", MAX_TEAM_NAME);
 	g_PlayerExtraInfo[33].dead = false;
 	g_PlayerExtraInfo[33].nextflash = true;

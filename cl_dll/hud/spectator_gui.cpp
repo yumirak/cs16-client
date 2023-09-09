@@ -90,20 +90,19 @@ int CHudSpectatorGui::Init()
 
 int CHudSpectatorGui::VidInit()
 {
-	if( !g_iXash )
-	{
-		ConsolePrint("Warning: CHudSpectatorGui is disabled! Dude, are you running me on old GoldSrc?\n");
-		m_iFlags = 0;
-		return 0;
-	}
-
-	m_hTimerTexture = gRenderAPI.GL_LoadTexture("gfx/vgui/timer.tga", NULL, 0, TF_NEAREST |TF_NOPICMIP|TF_NOMIPMAP|TF_CLAMP );
-	return 1;
+    if( g_iXash )
+    {
+        m_hTimerTexture = gRenderAPI.GL_LoadTexture("gfx/vgui/timer.tga", NULL, 0, TF_NEAREST |TF_NOPICMIP|TF_NOMIPMAP|TF_CLAMP );
+    }
+    return 1;
 }
 
 void CHudSpectatorGui::Shutdown()
 {
-	gRenderAPI.GL_FreeTexture( m_hTimerTexture );
+    if( g_iXash )
+    {
+        gRenderAPI.GL_FreeTexture( m_hTimerTexture );
+    }
 }
 
 inline void DrawButtonWithText( int x1, int y1, int wide, int tall, const char *sz, int r, int g, int b )

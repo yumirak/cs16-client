@@ -69,7 +69,7 @@ int CHudTimer::Draw( float fTime )
 
 	if( minutes * 60 + seconds > 20 )
 	{
-		DrawUtils::UnpackRGB(r,g,b, RGB_YELLOWISH );
+        DrawUtils::UnpackRGB(r,g,b, RGB_YELLOWISH );
 	}
 	else
 	{
@@ -80,18 +80,18 @@ int CHudTimer::Draw( float fTime )
 			m_flPanicTime = 0;
 			m_bPanicColorChange = !m_bPanicColorChange;
 		}
-		DrawUtils::UnpackRGB( r, g, b, m_bPanicColorChange ? RGB_YELLOWISH : RGB_REDISH );
+        DrawUtils::UnpackRGB( r, g, b, m_bPanicColorChange ? RGB_YELLOWISH : RGB_REDISH );
 	}
 
 	DrawUtils::ScaleColors( r, g, b, MIN_ALPHA );
     
     int iWatchWidth = gHUD.GetSpriteRect(m_HUD_timer).right - gHUD.GetSpriteRect(m_HUD_timer).left;
     
-	int x = ScreenWidth/2;
+    int x = (ScreenWidth/2) - iWatchWidth;
 	int y = ScreenHeight - 1.5 * gHUD.m_iFontHeight ;
     
     SPR_Set(gHUD.GetSprite(m_HUD_timer), r, g, b);
-    SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_timer));
+    SPR_DrawAdditive(0, x - iWatchWidth , y, &gHUD.GetSpriteRect(m_HUD_timer));
         
 	x = DrawUtils::DrawHudNumber2( x + iWatchWidth / 4, y, false, 2, minutes, r, g, b );
 	// draw :
@@ -157,7 +157,7 @@ int CHudProgressBar::Draw( float flTime )
 	if( m_szLocalizedHeader && m_szLocalizedHeader[0] )
 	{
 		int r, g, b;
-		DrawUtils::UnpackRGB( r, g, b, RGB_YELLOWISH );
+        DrawUtils::UnpackRGB( r, g, b, RGB_YELLOWISH );
 		DrawUtils::DrawHudString( ScreenWidth / 4, ScreenHeight / 2, ScreenWidth, (char*)m_szLocalizedHeader, r, g, b );
 
 		DrawUtils::DrawRectangle( ScreenWidth/ 4, ScreenHeight / 2 + gHUD.GetCharHeight(), ScreenWidth/2, ScreenHeight/30 );
