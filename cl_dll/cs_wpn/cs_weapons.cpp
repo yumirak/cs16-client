@@ -451,7 +451,7 @@ CBasePlayerWeapon :: PlayEmptySound
 */
 BOOL CBasePlayerWeapon :: PlayEmptySound( void )
 {
-#if 0
+//#if 0
 	if (m_iPlayEmptySound)
 	{
 		switch (m_iId)
@@ -465,12 +465,12 @@ BOOL CBasePlayerWeapon :: PlayEmptySound( void )
 			HUD_PlaySound("weapons/dryfire_pistol.wav", 0.8);
 			break;
 		default:
-			HUD_PlaySound("weapons/dryfire_rifle.wav",  0.8);
+            HUD_PlaySound("weapons/dryfire_rifle.wav",  1.0);
 			break;
 		}
-	}
-#endif
-	return 0;
+    }
+//#endif
+    return 0;
 }
 
 /*
@@ -621,7 +621,12 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 			m_fFireOnEmpty = TRUE;
 
 		if (m_pPlayer->m_bCanShoot == true)
+        {
+            // low ammo click
+            //if( m_iClip && ((float)m_iClip / (float)iMaxClip()) <= 0.2) PlayEmptySound();
+
 			PrimaryAttack();
+        }
 	}
 	else if (m_pPlayer->pev->button & IN_RELOAD && iMaxClip() != WEAPON_NOCLIP && !m_fInReload)
 	{

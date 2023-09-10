@@ -69,7 +69,7 @@ void EV_Fireglock18( event_args_t *args )
 			}
 			else
 			{
-				seq = isBurst? GLOCK18_SHOOT : GLOCK18_SHOOT3;
+                seq =  GLOCK18_SHOOT3; // isBurst? GLOCK18_SHOOT :
 			}
 		}
 		else
@@ -115,8 +115,7 @@ void EV_Fireglock18( event_args_t *args )
 
 	EV_EjectBrass(ShellOrigin, ShellVelocity, angles[ YAW ], g_iPShell, TE_BOUNCE_SHELL);
 
-	PLAY_EVENT_SOUND( ((g_iWeaponFlags & WPNSTATE_GLOCK18_BURST_MODE) != 0 || g_bGlockBurstMode )
-						&& !g_bHoldingShield ? SOUNDS_NAME[0] : SOUNDS_NAME[1] );
+    PLAY_EVENT_SOUND(  SOUNDS_NAME[1] );
 
 	EV_GetGunPosition( args, vecSrc, origin );
 	VectorCopy( forward, vecAiming );

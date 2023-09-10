@@ -108,22 +108,22 @@ void CAK47::AK47Fire(float flSpread, float flCycleTime, BOOL fUseAutoAim)
 	if (m_flAccuracy > 1.25f)
 		m_flAccuracy = 1.25f;
 
-	if (m_iClip <= 0)
+    if (m_iClip <= 0)
 	{
-		if (m_fFireOnEmpty)
-		{
+        if (m_fFireOnEmpty)
+        {
 			PlayEmptySound();
-			m_flNextPrimaryAttack = GetNextAttackDelay(0.2);
-		}
+            m_flNextPrimaryAttack = GetNextAttackDelay(0.2);
+        }
 
 #ifndef CLIENT_DLL
-		if (TheBots != NULL)
-		{
-			TheBots->OnEvent(EVENT_WEAPON_FIRED_ON_EMPTY, m_pPlayer);
-		}
+        if (TheBots != NULL)
+        {
+            TheBots->OnEvent(EVENT_WEAPON_FIRED_ON_EMPTY, m_pPlayer);
+        }
 #endif
 
-		return;
+        return;
 	}
 
 	--m_iClip;

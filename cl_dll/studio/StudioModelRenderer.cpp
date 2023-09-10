@@ -742,7 +742,8 @@ void CStudioModelRenderer::StudioSetupBones(void)
 		{
 			if (IEngineStudio.IsHardware())
 			{
-				if( bIsViewModel && (( gHUD.cl_righthand->value != 0.0f ) ^ (g_bHoldingKnife || g_bHoldingShield)) )
+				
+				if( bIsViewModel && (( gHUD.cl_righthand->value != 0.0f )  )) //^ (g_bHoldingKnife || g_bHoldingShield))
 				{
 					bonematrix[1][0] = -bonematrix[1][0];
 					bonematrix[1][1] = -bonematrix[1][1];
@@ -753,11 +754,12 @@ void CStudioModelRenderer::StudioSetupBones(void)
 					//if( gHUD.hand_xash && gHUD.hand_xash->value != 0.0f )
 					IEngineStudio.StudioSetCullState( 1 ); // set backface culling
 				}
+/*
 				else
 				{
 					IEngineStudio.StudioSetCullState( 0 );
 				}
-
+*/
 				ConcatTransforms((*m_protationmatrix), bonematrix, (*m_pbonetransform)[i]);
 				MatrixCopy((*m_pbonetransform)[i], (*m_plighttransform)[i]);
 			}
@@ -915,7 +917,16 @@ int CStudioModelRenderer::StudioDrawModel(int flags)
 	IEngineStudio.SetRenderModel(m_pRenderModel);
 
 	StudioSetUpTransform(0);
+/*
+	if(m_pCurrentEntity == gEngfuncs.GetViewModel() && (gHUD.cl_righthand->value))
+	{
+		(*m_protationmatrix)[0][1] *= -1;
+		(*m_protationmatrix)[1][1] *= -1;
+		(*m_protationmatrix)[2][1] *= -1;
 
+		//IEngineStudio.StudioSetCullState(true);
+	}
+*/
 	if (flags & STUDIO_RENDER)
 	{
 		if (!IEngineStudio.StudioCheckBBox())
